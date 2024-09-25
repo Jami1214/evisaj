@@ -193,7 +193,7 @@ const Create = () => {
           paystack.newTransaction({
             key: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
             email,
-            amount: 500000,
+            amount: 20,
             currency: 'GHS',
             callback: async (response) => {
               if (response.status === 'success') {
