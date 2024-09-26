@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
 import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
@@ -207,7 +206,7 @@ const AccountSignin = () => {
               },
             }}
           > 
-            Sign into your evisa account 
+            Sign in to your account
           </p>
           {
             loading ? (<div lg='12' className='text-center'><h2 className='font-bold text-2xl mt-3'>Logging In, Please Wait... <div role="status">
@@ -289,5 +288,3 @@ const AccountSignin = () => {
 }
 
 export default AccountSignin
-
-

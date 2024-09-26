@@ -250,7 +250,7 @@ const AccountSignup = () => {
               },
             }}
           >
-            Create your evisa account with ease
+            Create your e-visa account.
           </p>
           {
             loading ? (<div lg='12' className='text-center'><h2 className='font-bold text-2xl mt-3'>Signing Up, Please Wait... <div role="status">
@@ -373,7 +373,7 @@ const AccountSignup = () => {
            {/* Image Upload */}
            <div style={{marginBottom: '30px'}}>
            <label className="block mb-1 mt-1 mx-3 font-semibold text-[17px]">
-                    Image Upload:
+                  Please upload profile picture
                   </label>
                   <label style={{ cursor: 'pointer' }}>
               <BsImage size={20} />
