@@ -63,7 +63,7 @@ const HelpPage = () => {
             </div>
             <div>
               <h3 className="text-xl font-medium text-blue-800">How long does it take to get verified?</h3>
-              <p className="text-gray-700">Verification typically takes 1-3 business days. You will be notified via email when your verification is complete, and you'll see the verified status on your dashboard.</p>
+              <p className="text-gray-700">Verification typically takes 1-3 business days. You will be notified via email when your verification is complete, and you&apos;ll see the verified status on your dashboard.</p>
             </div>
             <div>
               <h3 className="text-xl font-medium text-blue-800">How can I apply for an e-Visa?</h3>
