@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
-import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+import { signInWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail } from "firebase/auth";
 import {getDoc, doc} from 'firebase/firestore';
 import { auth, db } from '../firebase.config';
 import { toast } from 'react-toastify';
@@ -13,6 +13,11 @@ const AccountSignin = () => {
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);  // Modal visibility state
+    const [resetEmail, setResetEmail] = useState('');  // Email input for reset password
+
+    
   
     const images = [
       'https://static.vecteezy.com/system/resources/previews/005/879/539/non_2x/cloud-computing-modern-flat-concept-for-web-banner-design-man-enters-password-and-login-to-access-cloud-storage-for-uploading-and-processing-files-illustration-with-isolated-people-scene-free-vector.jpg',
@@ -86,6 +91,22 @@ const AccountSignin = () => {
           toast.error('Failed to sign in: ' + error.message);
         }
       };
+
+
+      const handlePasswordReset = async () => {
+        if (!resetEmail) {
+            toast.error("Please enter your email");
+            return;
+        }
+
+        try {
+            await sendPasswordResetEmail(auth, resetEmail);
+            toast.success("Password reset email sent");
+            setIsModalOpen(false);
+        } catch (error) {
+            toast.error("Error sending password reset email: " + error.message);
+        }
+    };
 
 {/*
       useEffect(() => {
@@ -275,11 +296,51 @@ const AccountSignin = () => {
             }}
             className="text-rose-600"
           >
+            <div className="mt-4 text-center">
+                                <button 
+                                    type="button" 
+                                    onClick={() => setIsModalOpen(true)}  // Open modal
+                                    className="text-blue-600 hover:underline"
+                                >
+                                    Forgot Password?
+                                </button>
+                            </div>
             Don&apos;t have an account? <Link href="/signup" className="font-semibold">Sign up</Link>
           </p>
         
           </form>
           )}
+
+          {/* Modal */}
+          {isModalOpen && (
+                <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+                    <div className="bg-white rounded-lg p-6 w-full max-w-md">
+                        <h2 className="text-lg font-bold text-center mb-4">Reset Password</h2>
+                        <input 
+                            type="email" 
+                            value={resetEmail}
+                            onChange={(e) => setResetEmail(e.target.value)}
+                            required
+                            className="w-full px-4 py-2 border rounded-lg text-sm mb-4"
+                            placeholder="Enter your email"
+                        />
+                        <div className="flex justify-center">
+                            <button 
+                                onClick={handlePasswordReset} 
+                                className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
+                            >
+                                Send Reset Email
+                            </button>
+                            <button 
+                                onClick={() => setIsModalOpen(false)}  // Close modal
+                                className="ml-4 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
+                            >
+                                Cancel
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
       </div>
     </div>
